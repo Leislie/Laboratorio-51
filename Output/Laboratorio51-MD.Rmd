@@ -1,0 +1,107 @@
+---
+title: "Laboratorio51-MD"
+author: "Leislie R. Manjarrez O."
+date: "2023-03-15"
+output: html_document
+---
+
+Hecho con gusto por Leislie R. Manjarrez O.
+
+Laboratorio 51- Editando el color de los graficos (Parte 1)
+
+Instalar paqueterias
+install.packages("gapminder")
+install.packages("ggplot2")
+
+Llamar la librerias
+```{r}
+library(gapminder)
+library(ggplot2)
+```
+
+Cargar los datos al entorno
+```{r}
+data("gapminder")
+```
+
+Filtrado por año 2007
+```{r}
+gapminder2007 <- gapminder[gapminder$year == '2007',]
+```
+
+Link para conocer los colores que maneja ggplot
+http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf
+
+Cambiar el color de dos graficos utilizados previamente
+Grafico 1
+```{r}
+g1 <- ggplot(data = gapminder2007,
+           mapping = aes(x= gdpPercap,
+                         y = lifeExp,
+                         color = continent))+
+  geom_point()
+```
+
+Ver g1
+```{r}
+g1
+```
+
+
+Grafico 2
+```{r}
+g2 <- ggplot(data = gapminder2007,
+             mapping = aes(x= continent,
+                           y = lifeExp,
+                           fill = continent))+
+  geom_boxplot()
+```
+
+Ver g2
+```{r}
+g2
+```
+
+Cambiar el color de los continentes
+```{r}
+g1 + scale_color_manual(values = c('cadetblue',
+                                   'chartreuse',
+                                   'firebrick',
+                                   'gold',
+                                   'darkorchid'))
+                                   
+g2 + scale_fill_manual(values = c('cadetblue',
+                                   'chartreuse',
+                                   'firebrick',
+                                   'gold',
+                                   'darkorchid'))
+```
+
+Cambiar colores con paleta predefinida
+Instalar paqueteria
+install.packages("RColorBrewer")
+
+Llamar la libreria
+```{r}
+library(RColorBrewer)
+```
+
+Para ver la paleta ejecutar el siguiente comando
+```{r}
+display.brewer.all()
+```
+
+Guardar como imagen la paleta de color utilizando el boton export width=401, height= 800 
+Cambiar la escala de color con la paleta BrBG y  Paired
+```{r}
+g1 + scale_color_brewer(palette = "BrBG")
+
+g2 + scale_fill_brewer("Paired")
+```
+
+Cambiar a escala de grises
+```{r}
+g1 + scale_color_grey()
+
+g2 + scale_fill_grey()
+```
